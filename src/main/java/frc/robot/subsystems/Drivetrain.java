@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
@@ -46,11 +47,27 @@ public class Drivetrain extends SubsystemBase {
 
   private final Timer m_timer;
 
+  
+
   public Drivetrain() {
   m_leftMaster =  new WPI_TalonSRX(DriveConstants.leftMaster);
   m_leftSlave = new WPI_TalonSRX(DriveConstants.leftSlave);
   m_rightMaster = new WPI_TalonSRX(DriveConstants.rightMaster);
   m_rightSlave = new WPI_TalonSRX(DriveConstants.rightSlave);
+
+    
+    m_leftMaster.configOpenloopRamp(.05);
+    m_leftSlave.configOpenloopRamp(.05);
+    m_rightMaster.configOpenloopRamp(.05);
+    m_rightSlave.configOpenloopRamp(.05);
+    
+
+/*
+  m_rightMaster.setInverted(true);
+  m_rightSlave.setInverted(true);
+  m_leftMaster.setInverted(false);
+  m_leftSlave.setInverted(false);
+*/
 
   m_rightMaster.setNeutralMode(NeutralMode.Brake);
   m_rightSlave.setNeutralMode(NeutralMode.Brake);
@@ -59,7 +76,7 @@ public class Drivetrain extends SubsystemBase {
     
   m_left = new MotorControllerGroup(m_leftMaster, m_leftSlave);
   m_right = new MotorControllerGroup(m_rightMaster, m_rightSlave);
-
+  m_left.setInverted(true);
   //m_right.setInverted(true);
 
   m_diffDrive = new DifferentialDrive(m_left, m_right);
@@ -82,13 +99,15 @@ public class Drivetrain extends SubsystemBase {
   SmartDashboard.putData("Field", m_field);
 
   m_timer = new Timer();
+
+  
   }
 
 
 public void arcadeDrive(double move, double steer) {
   SmartDashboard.putNumber("arcadeMove", move * DriveConstants.driveSpeed);
   SmartDashboard.putNumber("arcadeSteer", steer * DriveConstants.driveSpeed);
-  m_diffDrive.arcadeDrive(move * DriveConstants.driveSpeed , steer * DriveConstants.driveSpeed);
+  m_diffDrive.arcadeDrive((move) * DriveConstants.driveSpeed , (steer) * DriveConstants.driveSpeed);
   //m_diffDrive.feed();
 }
 public void tankDrive(double left, double right) {
@@ -112,13 +131,24 @@ public void curvatureDrive(double move, double steer, boolean rotate) {
   //m_diffDrive.feed();
 }
 public void driveTime(double seconds, double speed) {
-  m_timer.reset();
-  m_timer.start();
-
-  while(m_timer.get() < seconds) {
-    arcadeDrive(speed, 0);
+ m_timer.start();
+ while(m_timer.get() < seconds)
+ arcadeDrive(speed,0);
+ /*
+  if (m_timer.getFPGATimestamp() < seconds) {
+    arcadeDrive(speed,0);
+  } else {
+    m_timer.stop();
   }
-  m_timer.stop();
+  */
+  m_timer.reset();
+  m_diffDrive.stopMotor();
+}
+public void stopDriveMotors() {
+  m_leftMaster.stopMotor();
+  m_leftSlave.stopMotor();
+  m_rightMaster.stopMotor();
+  m_rightSlave.stopMotor();
 }
 public void setMaxOutput(double maxOutput) {
   m_diffDrive.setMaxOutput(maxOutput);

@@ -2,10 +2,13 @@
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/LiveWindow/ColorSensor": "Subsystem",
       "/LiveWindow/Drivetrain": "Subsystem",
       "/LiveWindow/Hopper": "Subsystem",
       "/LiveWindow/Intake": "Subsystem",
+      "/LiveWindow/Shooter": "Subsystem",
       "/LiveWindow/Shooter/PID Controller": "PIDController",
+      "/LiveWindow/ShooterWPIPID/PID Controller": "PIDController",
       "/LiveWindow/Ungrouped/ADXRS450_Gyro[0]": "Gyro",
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
       "/LiveWindow/Ungrouped/DigitalInput[0]": "Digital Input",
@@ -18,9 +21,19 @@
       "/LiveWindow/Ungrouped/PIDController[7]": "PIDController",
       "/LiveWindow/Ungrouped/PIDController[8]": "PIDController",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/LiveWindow/Ungrouped/Talon SRX [5]": "Motor Controller",
       "/Shuffleboard/Autonomous/SendableChooser[0]": "String Chooser",
       "/Shuffleboard/Autonomous/SendableChooser[1]": "String Chooser",
+      "/Shuffleboard/AutonomousPathWeaver/SendableChooser[1]": "String Chooser",
       "/SmartDashboard/Field": "Field2d"
+    }
+  },
+  "NetworkTables": {
+    "SmartDashboard": {
+      "Field": {
+        "open": true
+      },
+      "open": true
     }
   }
 }

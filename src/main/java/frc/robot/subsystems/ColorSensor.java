@@ -35,7 +35,7 @@ m_colorMatcher.addColorMatch(kGreenTarget);
 m_colorMatcher.addColorMatch(kRedTarget);
 m_colorMatcher.addColorMatch(kYellowTarget);    
   }
-public void readColor() {
+public String readColor() {
   Color detectedColor = m_colorSensor.getColor();
   String colorString;
   ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
@@ -56,6 +56,8 @@ public void readColor() {
     SmartDashboard.putNumber("Blue", detectedColor.blue);
     SmartDashboard.putNumber("Confidence", match.confidence);
     SmartDashboard.putString("Detected Color", colorString);
+
+    return colorString;
 }
   @Override
   public void periodic() {

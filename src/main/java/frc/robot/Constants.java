@@ -22,9 +22,9 @@ public final class Constants {
         public static final int leftSlave = 2;
         public static final int leftMaster = 1;
 
-        public static final double driveSpeed = .6;
+        public static final double driveSpeed = .9;
 
-        public static final double deadband = .05;
+        public static final double deadband = .1;
 
         //public static final int rightEncoderPortA = 0;
         //public static final int rightEncoderPortB = 0;
@@ -56,15 +56,16 @@ public final class Constants {
     }
     public final class XboxConstants {
         public static final int port = 0;
+        public static final int port2 = 1;
     }
     public final class LimelightConstants {
         //MAKE SURE THIS IS IN METERS
-        public static final double targetHeight = 0;
-        public static final double limelightHeight = 0;
-        public static final double mountAngle = 0;
+        public static final double targetHeight = 2.7178;
+        public static final double limelightHeight = 0.4826;
+        public static final double mountAngle = 45;
     }
     public final class TurnToTargetConstants {
-        public static final double kP = 0;
+        public static final double kP = .05;
         public static final double kI = 0;
         public static final double kD = 0;
 
@@ -96,28 +97,50 @@ public final class Constants {
         public static final double veloTol = 0;
     }
     public static final class HopperConstants {
-        public static final int hopperPort = 1;
-        public static final double hopperSpeed = .2;
+        public static final int hopperPort = 5;
+        public static final double hopperSpeed = 1;
     }
     public static final class IntakeConstants {
-        public static final int intakePort = 0;
-        public static final double intakeSpeed = 0;
+        public static final int intakePort = 8;
+        public static final double intakeSpeed = .5;
+        public static final double reverseIntakeSpeed = -.5;
     }
     public static final class ShooterConstants {
-        public static final int masterPort = 2;
-        public static final int slavePort = 3;
+        public static final int masterPort = 3;
+        public static final int slavePort = 1; 
 
-        public static final double kSVolts = 0;
-        public static final double kVVoltSecondsPerRotation = 0;
 
-        public static final double kP = 0;
+        //FOR SPARKMAXPIDCONTROLLER
+        public static final int smartMotionSlot = 0;
+        public static final double maxVel = 2000;
+        public static final double minVel = 0;
+        public static final double maxAcc = 1500;
+        
+        public static final double allErr = 0;
+        public static final double maxRPM = 5700;
+        public static final double minRPM = 0;
+
+        public static final double iZone = 0;
+        public static final double ff = 0;
+
+        public static final double lowSpeed = .25;
+        public static final double highSpeed = .425;
+
+        public static final double kSVolts = 0.22092;
+        public static final double kVVoltSecondsPerRotation = 0.062875;
+        
+        public static final double kP = 0.46584;
         public static final double kI = 0;
         public static final double kD = 0;
+
+        public static final double kPV = 8.4506E-14;
+        public static final double kIV = 0;
+        public static final double kDV = 0;
 
         public static final double posTol = 0;
         public static final double veloTol = 0;
 
-        public static final double kShooterTargetRPS = 0;
+        public static final double kShooterTargetRPS = 4400;
 
         public static final double kEncoderDistancePerPulse = 0;
     }

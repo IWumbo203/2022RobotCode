@@ -18,19 +18,24 @@ public class Intake extends SubsystemBase {
   public Intake() {
     m_intakeMotor = new CANSparkMax(IntakeConstants.intakePort, MotorType.kBrushless);
     m_timer = new Timer();
+    m_intakeMotor.setInverted(true);
   }
 
-  public void setIntake() {
-    m_intakeMotor.set(IntakeConstants.intakeSpeed);
+  public void setIntake(double speed) {
+    m_intakeMotor.set(speed);
+  }
+  public void stopIntake() {
+    m_intakeMotor.set(0);
   }
   public void setIntakeTimer(double seconds) {
     m_timer.reset();
     m_timer.start();
 
     while(m_timer.get() < seconds) {
-      setIntake();
+      setIntake(IntakeConstants.intakeSpeed);
     }
     m_timer.stop();
+    m_intakeMotor.stopMotor();
   }
 
   @Override
